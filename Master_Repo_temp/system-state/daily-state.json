@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "lastUpdated": "2026-03-26T02:45:00Z",
+    "version": "1.0.0",
+    "purpose": "Source of truth for OpenClaw replication",
+    "repos": {
+      "dailyWorkingSpace": "https://github.com/itsaslamopenclawdata/Daily-Working-Space",
+      "masterRepo": "https://github.com/itsaslamopenclawdata/Master_Repo"
+    }
+  },
+  "openclawConfig": {
+    "meta": {
+      "lastTouchedVersion": "2026.3.2",
+      "lastTouchedAt": "2026-03-06T08:56:02.354Z"
+    },
+    "wizard": {
+      "lastRunAt": "2026-03-06T08:56:02.310Z",
+      "lastRunVersion": "2026.3.2",
+      "lastRunCommand": "doctor",
+      "lastRunMode": "local"
+    },
+    "models": {
+      "mode": "merge",
+      "providers": {
+        "minimax": {
+          "baseUrl": "https://api.minimax.io/anthropic",
+          "apiKey": "sk-cp-S39HdeyywsG_xgmt8tbK7diI71-NkF579HA1hc9UGEfImOHmvdbCEOFafnn627ovdzJpW-WnbTVJa2rxmBuEtekM9dXznOlo58l1i5hXAHQNKb4P9Dq2k7Q",
+          "api": "anthropic-messages",
+          "models": [
+            { "id": "MiniMax-M2.5", "name": "MiniMax-M2.5 (Coding)", "reasoning": true, "contextWindow": 128000, "maxTokens": 64000 },
+            { "id": "MiniMax-M2.1", "name": "MiniMax-M2.1 (General)", "reasoning": true, "contextWindow": 128000, "maxTokens": 64000 },
+            { "id": "MiniMax-M2", "name": "MiniMax-M2 (Lightweight)", "reasoning": false, "contextWindow": 64000, "maxTokens": 32000 }
+          ]
+        },
+        "zai": {
+          "baseUrl": "https://api.z.ai/api/coding/paas/v4",
+          "apiKey": "020583a118d64d3a9a80a00c60f0ad12.3Ytb1CB5reHhNEwC",
+          "api": "openai-completions",
+          "models": [
+            { "id": "glm-5", "name": "GLM-5", "reasoning": true, "contextWindow": 204800, "maxTokens": 131072 },
+            { "id": "glm-4.7", "name": "GLM-4.7", "reasoning": true, "contextWindow": 204800, "maxTokens": 131072 }
+          ]
+        }
+      }
+    },
+    "agents": {
+      "defaults": {
+        "model": "minimax/MiniMax-M2.5",
+        "workspace": "/home/itsaslamautomations/.openclaw/workspace",
+        "compaction": { "mode": "safeguard" }
+      },
+      "list": [
+        { "id": "main" },
+        { "id": "linearmaster", "name": "linearmaster", "workspace": "/home/itsaslamautomations/.openclaw/agents/linearmaster" },
+        { "id": "quantumcore", "name": "quantumcore", "workspace": "/home/itsaslamautomations/.openclaw/agents/quantumcore" },
+        { "id": "quantumml", "name": "quantumml", "workspace": "/home/itsaslamautomations/.openclaw/agents/quantumml" },
+        { "id": "researchcurator", "name": "researchcurator", "workspace": "/home/itsaslamautomations/.openclaw/agents/researchcurator" },
+        { "id": "frontierpositioning", "name": "frontierpositioning", "workspace": "/home/itsaslamautomations/.openclaw/agents/frontierpositioning" },
+        { "id": "ideascout", "name": "ideascout", "workspace": "/home/itsaslamautomations/.openclaw/agents/ideascout" },
+        { "id": "marketsize", "name": "marketsize", "workspace": "/home/itsaslamautomations/.openclaw/agents/marketsize" },
+        { "id": "moatdesign", "name": "moatdesign", "workspace": "/home/itsaslamautomations/.openclaw/agents/moatdesign" },
+        { "id": "venturescore", "name": "venturescore", "workspace": "/home/itsaslamautomations/.openclaw/agents/venturescore" },
+        { "id": "leadarchitect", "name": "leadarchitect", "workspace": "/home/itsaslamautomations/.openclaw/agents/leadarchitect" },
+        { "id": "milo", "name": "milo", "workspace": "/home/itsaslamautomations/.openclaw/agents/milo" },
+        { "id": "josh", "name": "josh", "workspace": "/home/itsaslamautomations/.openclaw/agents/josh" },
+        { "id": "dev", "name": "dev", "workspace": "/home/itsaslamautomations/.openclaw/agents/dev" },
+        { "id": "techradar", "name": "techradar", "workspace": "/home/itsaslamautomations/.openclaw/agents/techradar" },
+        { "id": "narrativestartegist", "name": "narrativestartegist", "workspace": "/home/itsaslamautomations/.openclaw/agents/narrativestartegist" },
+        { "id": "contentforge", "name": "contentforge", "workspace": "/home/itsaslamautomations/.openclaw/agents/contentforge" },
+        { "id": "repurpose", "name": "repurpose", "workspace": "/home/itsaslamautomations/.openclaw/agents/repurpose" },
+        { "id": "performanceanalytics", "name": "performanceanalytics", "workspace": "/home/itsaslamautomations/.openclaw/agents/performanceanalytics" }
+      ]
+    },
+    "bindings": [
+      { "agentId": "main", "match": { "channel": "discord", "accountId": "techradar" } },
+      { "agentId": "narrativestartegist", "match": { "channel": "discord", "accountId": "narrativestartegist" } },
+      { "agentId": "contentforge", "match": { "channel": "discord", "accountId": "contentforge" } },
+      { "agentId": "repurpose", "match": { "channel": "discord", "accountId": "repurpose" } },
+      { "agentId": "performanceanalytics", "match": { "channel": "discord", "accountId": "performanceanalytics" } }
+    ],
+    "channels": {
+      "discord": {
+        "enabled": true,
+        "allowBots": true,
+        "groupPolicy": "allowlist",
+        "streaming": "off",
+        "guilds": {
+          "1472295322960265226": { "channels": { "1475761769753608213": { "allow": true } } }
+        }
+      }
+    },
+    "gateway": {
+      "port": 18789,
+      "mode": "local",
+      "bind": "loopback",
+      "auth": { "mode": "token", "token": "96cf5fff881eca341d157ee3defec189cc010ffc8b9f3bff" },
+      "tailscale": { "mode": "off" },
+      "nodes": { "denyCommands": ["camera.snap", "camera.clip", "screen.record", "calendar.add", "contacts.add", "reminders.add"] }
+    }
+  },
+  "implementations": {
+    "mementoSkills": {
+      "path": "memento-skills",
+      "description": "Self-evolving agent framework",
+      "files": [
+        "README.md", "setup/README.md", "integrations/README.md", "skills/README.md", "evolution/README.md", "config/README.md"
+      ],
+      "install": "git clone https://github.com/Memento-Teams/Memento-Skills.git && pip install -e ."
+    },
+    "ohMyClaudeCode": {
+      "path": "oh-my-claudecode",
+      "description": "Teams-first Multi-agent orchestration for Claude Code",
+      "files": [
+        "README.md", "setup/README.md", "integrations/README.md", "skills/README.md", "reference/README.md"
+      ],
+      "install": "/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode && /plugin install oh-my-claudecode"
+    },
+    "openHands": {
+      "path": "docs/OPENHANDS_GUIDE.md",
+      "description": "AI-driven development platform"
+    },
+    "aiAgentLevels": {
+      "path": "docs/AI_AGENT_LEVELS_IMPLEMENTATION.md",
+      "description": "L0-L4 implementation guide"
+    },
+    "aiAgentArchitecture": {
+      "path": "docs/AI_AGENT_ARCHITECTURE_EVOLUTION.md",
+      "description": "Stage 1-4 evolution guide"
+    },
+    "oracleVpsSetup": {
+      "path": "docs/ORACLE_VPS_SETUP.md",
+      "description": "VPS setup with SSH, GitHub, OpenClaw"
+    },
+    "mementoSkillsAdvantage": {
+      "path": "docs/MEMENTO_SKILLS_ADVANTAGE.md",
+      "description": "Self-evolving framework advantage"
+    },
+    "techCareerRoadmaps": {
+      "path": "roadmaps/TECH_CAREER_ROADMAPS.md",
+      "description": "Career paths and learning resources"
+    },
+    "masteryActionPlan": {
+      "path": "roadmaps/10X_MASTERY_ACTION_PLAN.md",
+      "description": "12-20 week mastery plans"
+    },
+    "crucixIntelligenceTerminal": {
+      "path": "docs/CRUCIX_INTELLIGENCE_TERMINAL.md",
+      "description": "Intelligence terminal setup"
+    },
+    "aiAgentPatterns": {
+      "path": "docs/AI_AGENT_PATTERNS.md",
+      "description": "4 core AI agent patterns"
+    }
+  },
+  "goals": {
+    "list": [
+      { "id": "Build-1B-Company", "path": "goals/Build-1B-Company.md", "priority": 1 },
+      { "id": "EbookGen", "path": "goals/EbookGen.md", "priority": 2 },
+      { "id": "VentureHQ", "path": "goals/VentureHQ.md", "priority": 3 },
+      { "id": "BeeManHoney", "path": "goals/BeeManHoney.md", "priority": 4 },
+      { "id": "MyDream1B", "path": "goals/MyDream1B.md", "priority": 5 },
+      { "id": "Becoming-System-Design-Pro", "path": "goals/Becoming-System-Design-Pro", "priority": 6 }
+    ]
+  },
+  "cronJobs": [
+    { "schedule": "0 0 * * *", "command": "rm -rf /tmp/*", "description": "Clean tmp files daily at midnight" },
+    { "schedule": "0 0 * * *", "command": "journalctl --vacuum-time=2d", "description": "Clean journal logs older than 2 days" },
+    { "schedule": "0 0 * * *", "command": "openclaw state sync --json /home/itsaslamautomations/.openclaw/workspace/Daily-Working-Space/system-state/daily-state.json", "description": "Daily state sync (custom)" }
+  ],
+  "replication": {
+    "purpose": "Clone entire OpenClaw setup to new VPS",
+    "steps": [
+      "1. Clone Daily-Working-Space: git clone https://github.com/itsaslamopenclawdata/Daily-Working-Space.git",
+      "2. Clone Master_Repo: git clone https://github.com/itsaslamopenclawdata/Master_Repo.git",
+      "3. Install OpenClaw: curl -sSL https://get.openclaw.ai | sh",
+      "4. Copy config: cp system-state/openclaw.json ~/.openclaw/config.json",
+      "5. Restore agents: openclaw agent restore --from system-state/agents/",
+      "6. Install skills: cp -r skills/ ~/.openclaw/skills/",
+      "7. Setup cron: crontab system-state/crontab.txt"
+    ]
+  },
+  "todaysUpdates": {
+    "date": "2026-03-26",
+    "newImplementations": [
+      "Added AI_AGENT_LEVELS_IMPLEMENTATION.md - L0 to L4 guide for autonomous AI",
+      "Added oh-my-claudecode implementation guide with OpenClaw integration",
+      "Added memento-skills folder with setup, skills, integrations"
+    ]
+  }
+}

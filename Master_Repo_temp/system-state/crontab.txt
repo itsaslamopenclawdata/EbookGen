@@ -1,0 +1,9 @@
+# OpenClaw Cron Jobs
+# Maintained by LeadArchitectBot
+
+# System cleanup - daily at midnight
+0 0 * * * rm -rf /tmp/*
+0 0 * * * journalctl --vacuum-time=2d
+
+# State sync - daily at midnight (custom script to be created)
+# 0 0 * * * cd /home/itsaslamautomations/.openclaw/workspace/Daily-Working-Space && git pull origin main && cp openclaw.json system-state/daily-state.json
